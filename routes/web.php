@@ -1,0 +1,33 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\WorkspaceController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/workspaces', [WorkspaceController::class, 'index'])->name('workspaces.index');
+    Route::get('/workspaces/create', [WorkspaceController::class, 'create'])->name('workspaces.create');
+    Route::post('/workspaces', [WorkspaceController::class, 'store'])->name('workspaces.store');
+    Route::get('/workspaces/{workspace}', [WorkspaceController::class, 'show'])->name('workspaces.show');
+
+    Route::get('/workspaces/{workspace}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+    Route::post('/workspaces/{workspace}/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::put('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
+    Route::put('/tasks/{task}/incomplete', [TaskController::class, 'incomplete'])->name('tasks.incomplete');
+});
+
+require __DIR__ . '/auth.php';

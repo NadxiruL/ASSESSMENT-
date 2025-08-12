@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <table class="min-w-full w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col"
@@ -59,11 +59,9 @@
                                             @if ($task->isCompleted())
                                                 Completed {{ $task->completed_at->diffForHumans() }}
                                             @else
-                                                {{-- Check if deadline is a valid date before calculating diff --}}
                                                 @if ($task->deadline)
                                                     @php
                                                         $diff = now()->diff($task->deadline);
-                                                        $formatted = '';
                                                         $parts = [];
                                                         if ($diff->y > 0) {
                                                             $parts[] = $diff->y . ' years';
@@ -88,14 +86,14 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-2">
                                             @if ($task->isCompleted())
                                                 <form action="{{ route('tasks.incomplete', $task) }}" method="POST"
                                                     class="inline">
                                                     @method('PUT')
                                                     @csrf
                                                     <button type="submit"
-                                                        class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-900 dark:hover:text-yellow-300">
+                                                        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-yellow-600 dark:text-yellow-400 hover:bg-gray-300 dark:hover:bg-gray-600">
                                                         Mark Incomplete
                                                     </button>
                                                 </form>
@@ -105,7 +103,7 @@
                                                     @method('PUT')
                                                     @csrf
                                                     <button type="submit"
-                                                        class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300">
+                                                        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-yellow-600 dark:text-yellow-400 hover:bg-gray-300 dark:hover:bg-gray-600">
                                                         Mark Complete
                                                     </button>
                                                 </form>

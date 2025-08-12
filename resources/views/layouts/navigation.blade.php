@@ -16,10 +16,6 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-
-                {{-- <x-nav-link :href="route('tasks')" :active="request()->routeIs('tasks.*')">
-                    {{ __('Tasks') }}
-                </x-nav-link> --}}
                 <x-nav-link :href="route('workspaces.index')" :active="request()->routeIs('workspaces.*')">
                     {{ __('Workspaces') }}
                 </x-nav-link>

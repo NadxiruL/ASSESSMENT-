@@ -15,7 +15,7 @@ cp .env.example .env
 
 run php artisan key:generate
 
-run npm install and npm run build
+run npm install
 
 run php artisan migrate --seed
 

@@ -39,4 +39,12 @@ class TaskPolicy
     {
         return $task->workspace->user_id === $user->id;
     }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user, Task $task): bool
+    {
+        return $task->workspace->user_id === $user->id;
+    }
 }

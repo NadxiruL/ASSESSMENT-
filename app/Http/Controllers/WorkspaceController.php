@@ -44,4 +44,31 @@ class WorkspaceController extends Controller
 
         return view('workspaces.show', compact('workspace', 'tasks'));
     }
+
+    public function edit(Workspace $workspace)
+    {
+        Gate::authorize('update', $workspace);
+
+        return view('workspaces.edit', compact('workspace'));
+    }
+
+    public function update(Request $request, Workspace $workspace)
+    {
+        Gate::authorize('update', $workspace);
+
+        $validated = $request->validate(['name' => 'required|string|max:255']);
+
+        $workspace->update($validated);
+
+        return redirect()->route('workspaces.index', $workspace)->with('updated', 'Workspace updated successfully.');
+    }
+
+    public function destroy(Workspace $workspace)
+    {
+        Gate::authorize('delete', $workspace);
+
+        $workspace->delete();
+
+        return redirect()->route('workspaces.index')->with('deleted', 'Workspace deleted successfully.');
+    }
 }

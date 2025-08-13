@@ -22,12 +22,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/workspaces', [WorkspaceController::class, 'index'])->name('workspaces.index');
     Route::get('/workspaces/create', [WorkspaceController::class, 'create'])->name('workspaces.create');
     Route::post('/workspaces', [WorkspaceController::class, 'store'])->name('workspaces.store');
+    Route::get('/workspaces/{workspace}/edit', [WorkspaceController::class, 'edit'])->name('workspaces.edit');
+    Route::put('/workspaces/{workspace}', [WorkspaceController::class, 'update'])->name('workspaces.update');
     Route::get('/workspaces/{workspace}', [WorkspaceController::class, 'show'])->name('workspaces.show');
+    Route::delete('/workspaces/{workspace}', [WorkspaceController::class, 'destroy'])->name('workspaces.destroy');
 
+    Route::get('/workspaces/{workspace}/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+    Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::get('/workspaces/{workspace}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
     Route::post('/workspaces/{workspace}/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::put('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
     Route::put('/tasks/{task}/incomplete', [TaskController::class, 'incomplete'])->name('tasks.incomplete');
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 });
 
 require __DIR__ . '/auth.php';

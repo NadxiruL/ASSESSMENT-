@@ -87,6 +87,20 @@
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-2">
+                                            <form action="{{ route('tasks.destroy', $task) }}" method="POST"
+                                                class="inline"
+                                                onsubmit="return confirm('Are you sure you want to delete this task? This action cannot be undone.');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="px-4 py-2 bg-red-600 dark:bg-red-700 rounded-md text-white hover:bg-red-700 dark:hover:bg-red-800">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('tasks.edit', ['workspace' => $workspace, 'task' => $task]) }}"
+                                                class="px-4 py-2 bg-yellow-500 dark:bg-yellow-600 rounded-md text-white hover:bg-yellow-600 dark:hover:bg-yellow-700">
+                                                Edit
+                                            </a>
                                             @if ($task->isCompleted())
                                                 <form action="{{ route('tasks.incomplete', $task) }}" method="POST"
                                                     class="inline">
@@ -103,7 +117,7 @@
                                                     @method('PUT')
                                                     @csrf
                                                     <button type="submit"
-                                                        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-yellow-600 dark:text-yellow-400 hover:bg-gray-300 dark:hover:bg-gray-600">
+                                                        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-green-600 dark:text-green-400 hover:bg-gray-300 dark:hover:bg-gray-600">
                                                         Mark Complete
                                                     </button>
                                                 </form>
